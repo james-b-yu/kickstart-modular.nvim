@@ -51,4 +51,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Use wildmenu and set completion behavior
+vim.o.wildmenu = true
+vim.o.wildmode = 'longest:full,full'
+
+-- optional mappings for convenience
+local opts = { noremap = true, silent = true }
+vim.api.nvim_set_keymap('c', '<Tab>', '<C-D><Tab>', opts)
+vim.api.nvim_set_keymap('c', '<S-Tab>', '<C-D><S-Tab>', opts)
+vim.api.nvim_set_keymap('c', '<C-n>', '<Down>', opts)
+vim.api.nvim_set_keymap('c', '<C-p>', '<Up>', opts)
+
+vim.keymap.set('n', '<leader>b', '<cmd>Neotree toggle<cr>', { desc = 'Toggle Neotree' })
+
 -- vim: ts=2 sts=2 sw=2 et

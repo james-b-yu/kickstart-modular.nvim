@@ -10,7 +10,7 @@ vim.o.number = true
 -- vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.o.mouse = 'a'
+vim.o.mouse = 'c'
 
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
@@ -72,3 +72,12 @@ vim.o.scrolloff = 10
 vim.o.confirm = true
 
 -- vim: ts=2 sts=2 sw=2 et
+
+-- NOTE: additional options
+vim.o.background = 'dark'
+vim.o.relativenumber = true
+vim.o.termguicolors = true
+-- Sets indentation to 2 spaces for live editing
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true

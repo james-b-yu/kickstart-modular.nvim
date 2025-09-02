@@ -211,7 +211,8 @@ return {
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
-        -- rust_analyzer = {},
+        -- rust_analyzer = {}, -- NOTE: we are using rustaceanvim so don't want to enable rust_analyzer through nvim
+        --
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -220,6 +221,12 @@ return {
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
+        tsserver = {
+          package_name = 'typescript-language-server',
+          filetypes = { 'typescript', 'typescriptreact', 'typescript.tsx' },
+          cmd = { 'typescript-language-server', '--stdio' },
+          settings = {},
+        },
 
         lua_ls = {
           -- cmd = { ... },
@@ -250,9 +257,20 @@ return {
       --
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
-      local ensure_installed = vim.tbl_keys(servers or {})
+      local ensure_installed = {}
+      for name, config in pairs(servers) do
+        if config.package_name then
+          table.insert(ensure_installed, config.package_name)
+          config.package_name = nil -- remove it so lspconfig doesn't see it
+        else
+          table.insert(ensure_installed, name)
+        end
+      end
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'prettierd',
+        'codelldb',
+        'cpptools',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
